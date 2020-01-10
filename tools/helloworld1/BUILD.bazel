@@ -34,7 +34,7 @@ go_test(
 load("@io_bazel_rules_docker//go:image.bzl", "go_image")
 
 go_image(
-    name = "image",
+    name = "go_docker_image",
     binary = ":helloworld1",
     pure = "on",
     visibility = ["//visibility:public"],
@@ -45,7 +45,7 @@ load("@io_bazel_rules_docker//container:container.bzl", "container_push")
 container_push(
     name = "push",
     format = "Docker",
-    image = ":image",
+    image = ":go_docker_image",
     registry = "registry.dev.bcnl.work",
     repository = "templain/bazel-helloworld",
     stamp = True,
