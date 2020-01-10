@@ -29,3 +29,15 @@ go_test(
     srcs = ["main_test.go"],
     embed = [":go_default_library"],
 )
+
+load("@io_bazel_rules_docker//container:container.bzl", "container_push")
+container_push(
+    name = "push",
+    format = "Docker",
+    image = ":image",
+    registry = "registry.dev.bcnl.work",
+    repository = "templain/bazel-helloworld",
+    stamp = True,
+    tag = "{BUILD_TIMESTAMP}",
+)
+
