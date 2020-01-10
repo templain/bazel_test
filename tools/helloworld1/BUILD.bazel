@@ -30,12 +30,18 @@ go_test(
     embed = [":go_default_library"],
 )
 
-load("@io_bazel_rules_docker//container:container.bzl", "container_push")
+load("@io_bazel_rules_docker//container:container.bzl", "container_image", "container_push")
+
+container_image(
+    name = "image_port",
+    base = ":image",
+    ports = ["8080"],
+)
 
 container_push(
     name = "push",
     format = "Docker",
-    image = ":image",
+    image = ":image_port",
     registry = "registry.dev.bcnl.work",
     repository = "templain/bazel-helloworld",
     tag = "latest",
